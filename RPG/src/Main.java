@@ -19,7 +19,7 @@ public class Main {
         choice = scanner.nextInt();
 
         if(choice == 1){
-            
+
         }
 
 
