@@ -14,10 +14,8 @@ public class Arma extends Item{
         return DMG;
     }
 
-
     @Override
     public void usar(Player player) {
-
     }
 
     @Override
