@@ -1,4 +1,4 @@
-package Monstros;
+package Personagens.Monstros;
 
 import java.util.Random;
 
@@ -8,19 +8,19 @@ public class Esqueleto extends Monstro {
         int lvl = random.nextInt(3) + 1;
 
         if (lvl == 1) {
-            hp = 40;
-            dmg = 4;
+            monsterHP = 40;
+            monsterDMG = 4;
         } else if (lvl == 2) {
-            hp = 50;
-            dmg = 5;
+            monsterHP = 50;
+            monsterDMG = 5;
         } else {
-            hp = 60;
-            dmg = 6;
+            monsterHP = 60;
+            monsterDMG = 6;
         }
     }
 
     @Override
     public void printStats() {
-        System.out.println("Esqueleto - HP: " + hp + ", Dano: " + dmg);
+        System.out.println("Esqueleto - HP: " + monsterHP + ", Dano: " + monsterDMG);
     }
 }

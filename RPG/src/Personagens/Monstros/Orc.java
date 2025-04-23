@@ -1,4 +1,4 @@
-package Monstros;
+package Personagens.Monstros;
 
 import java.util.Random;
 
@@ -8,19 +8,19 @@ public class Orc extends Monstro {
         int lvl = random.nextInt(3) + 1;
 
         if (lvl == 1) {
-            hp = 70;
-            dmg = 7;
+            monsterHP = 70;
+            monsterDMG = 7;
         } else if (lvl == 2) {
-            hp = 90;
-            dmg = 9;
+            monsterHP = 90;
+            monsterDMG = 9;
         } else {
-            hp = 110;
-            dmg = 11;
+            monsterHP = 110;
+            monsterDMG = 11;
         }
     }
 
     @Override
     public void printStats() {
-        System.out.println("Orc - HP: " + hp + ", Dano: " + dmg);
+        System.out.println("Orc - HP: " + monsterHP + ", Dano: " + monsterDMG);
     }
 }

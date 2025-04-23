@@ -90,7 +90,7 @@
 //
 //            System.out.print("\nTURNO: " + i++);
 //
-//            // Player atacando
+//            // Personagens.Player atacando
 //            System.out.println("\n--- SUA VEZ! ---");
 //            playerDMG = playerATQ(playerDMG);
 //            monsterHP -= playerDMG;
