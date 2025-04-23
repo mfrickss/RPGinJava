@@ -1,5 +1,7 @@
 package Personagens;
 
+import Personagens.Itens.Arma;
+
 public class Player {
     private int playerHP;
     private int playerMANA;
@@ -9,7 +11,7 @@ public class Player {
     public Player() {
         this.playerHP = 100;
         this.playerMANA = 100;
-        this.armaEquipada = new Arma("Adaaga de Ferro", 10);
+        this.armaEquipada = new Arma("Adaga de Ferro", "Uma adaga brilhante e pequena", 100, 10);
     }
 
     public void printStats() {

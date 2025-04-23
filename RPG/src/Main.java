@@ -1,6 +1,8 @@
 import Personagens.Monstros.*;  // Importa tudo dentro da pasta Personagens.Monstros
+
 import java.util.Random;
 import java.util.Scanner;
+
 import Personagens.*;
 
 
@@ -10,42 +12,71 @@ public class Main {
 
     public static void main(String[] args) {
         Player player = new Player();
-        int choice;
+        int salaAtual = 0;
+        int totalSalas = 10;
+        int totalMoedas = 0;
 
-        System.out.println("Você acorda em uma masmorra, não há memórias em sua mente, você não sabe como ou porquê está ali.\nAo olhar ao redor, você vê 3 caminhos: ");
-
-        System.out.println("1. Uma portão que leva à um destino oculto pela escuridão! ");
-        System.out.println("2. Uma abertura na parede, parece um buraco causado por algo grande!");
-        System.out.println("3. Uma porta de ferro que parece muito pesada, é impossível saber o que tem atrás.");
         linha();
-        System.out.print("Qual sua escolha?(1-3): ");
-        choice = scanner.nextInt();
+        System.out.println("Você acorda de frente para uma masmorra, não há memórias em sua mente, você não sabe como ou porquê está ali.\nVocê tem apenas 3 escolhas.");
 
-        if(choice == 1){
-            System.out.println("Você passa pela escuridão e ao chegar ao que parece ser o fim, você se vê completamente sozinho.\nAo ascender sua tocha você se depara com inimigos...");
+
+        while (salaAtual < totalSalas && player.getPlayerHP() > 0) {
+
+            int choice;
+
             linha();
-
-            System.out.println("1. Começar combate");
-            System.out.println("2. Abrir inventário");
+            System.out.println("1. Entrar na masmorra ");
+            System.out.println("2. Ao olhar para o lado, você vê uma figura humanoide, falar com tal?");
             System.out.println("3. Fugir");
             linha();
             System.out.print("Qual sua escolha?(1-3): ");
             choice = scanner.nextInt();
 
-            if (choice == 1){
-                System.out.println("COMBATE");
+            if (choice == 1) {
+                salaAtual = 1;
+                System.out.println("Você passa pela escuridão e ao chegar ao que parece ser o fim, você se vê completamente sozinho.\nAo ascender sua tocha você se depara com inimigos...");
                 linha();
-                startBattle(player);
+
+                System.out.println("1. Começar combate");
+                System.out.println("2. Abrir inventário");
+                System.out.println("3. Voltar");
+                linha();
+                System.out.print("Qual sua escolha?(1-3): ");
+                choice = scanner.nextInt();
+                if (choice == 1) {
+                    System.out.println("COMBATE");
+                    linha();
+                    startBattle(player);
+                    salaAtual++;
+                }
+            } else if (choice == 2) {
+                linha();
+                System.out.println("Você solta um tímido 'Olá?', em seguida, ouve uma voz grunhida.");
+                linha();
+                System.out.println("'Oláááá! Faz tempo que não vejo um desafiante novo. Você me parece fraco. Quer comprar alguns itens? hihihihihi'");
+                System.out.println("1. Sim");
+                System.out.println("2. Falar");
+                System.out.println("3. Sair");
+                choice = scanner.nextInt();
+                if(choice == 1){
+                    System.out.println("LOJA");
+                } else if (choice == 2) {
+                    System.out.println("HISTÓRIA");
+                }else {
+                    salaAtual = 0;
+                }
+            } else {
+                System.out.println("Você tenta sair, mas não consegue.");
             }
 
         }
 
+
     }
 
-     static void linha(){
+    static void linha() {
         System.out.println("===================================");
     }
-
 
 
     static void startBattle(Player player) {
@@ -106,6 +137,6 @@ public class Main {
         return monstros; // ← retorna o array para ser usado no combate
     }
 
-    }
+}
 
 
