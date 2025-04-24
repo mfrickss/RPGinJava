@@ -39,15 +39,14 @@ public class Main {
 
                 System.out.println("1. Começar combate");
                 System.out.println("2. Abrir inventário");
-                System.out.println("3. Voltar");
+                System.out.println("3. Fugir");
                 linha();
                 System.out.print("Qual sua escolha?(1-3): ");
                 choice = scanner.nextInt();
                 if (choice == 1) {
                     System.out.println("COMBATE");
                     linha();
-                    startBattle(player);
-                    salaAtual++;
+                    salaAtual = startBattle(player, salaAtual);
                 }
             } else if (choice == 2) {
                 linha();
@@ -65,8 +64,8 @@ public class Main {
                 }else {
                     salaAtual = 0;
                 }
-            } else {
-                System.out.println("Você tenta sair, mas não consegue.");
+            } else if(choice == 3) {
+                salaAtual = chanceFugir(salaAtual);
             }
 
         }
@@ -79,7 +78,7 @@ public class Main {
     }
 
 
-    static void startBattle(Player player) {
+    static int startBattle(Player player, int salaAtual) {
         Monstro[] monstros = gerarMonstros(); // ← gera os monstros aqui
 
         for (Monstro monstro : monstros) {
@@ -91,15 +90,20 @@ public class Main {
                 System.out.println("HP do Monstro: " + monstro.getMonsterHP());
                 System.out.println("1. Atacar");
                 System.out.println("2. Inventário");
-                System.out.println("3. Fugir (não funciona)");
+                System.out.println("3. Fugir");
                 System.out.print("Escolha: ");
                 int escolha = scanner.nextInt();
 
                 if (escolha == 1) {
                     monstro.levarDMG(player.getPlayerDMG());
                     System.out.println("Você causou " + player.getPlayerDMG() + " de dano!");
-                } else {
-                    System.out.println("Você tentou fugir... mas não tem escapatória!");
+                } else if(escolha == 3) {
+                    int novaSala = chanceFugir(salaAtual);
+                    if(novaSala < salaAtual){
+                        salaAtual = novaSala;
+                        System.out.println("Você fugiu.");
+                        return salaAtual;
+                    }
                 }
 
                 if (monstro.getMonsterHP() > 0) {
@@ -110,13 +114,15 @@ public class Main {
 
             if (player.getPlayerHP() <= 0) {
                 System.out.println("Você foi derrotado...");
-                return;
+                return salaAtual;
             } else {
                 System.out.println("Você derrotou o monstro!");
             }
         }
 
         System.out.println("Você venceu todos os monstros da masmorra!");
+        salaAtual++;
+        return salaAtual;
 
     }
 
@@ -135,6 +141,17 @@ public class Main {
         }
 
         return monstros; // ← retorna o array para ser usado no combate
+    }
+
+    static int chanceFugir(int salaAtual){
+        int chance = random.nextInt(9) + 1;
+        if (chance >= 6){
+            salaAtual--;
+            System.out.println("Você conseguiu fugir!");
+        }else{
+            System.out.println("Você tentou fugir mas os monstros te encurralaram. LUTE!");
+        }
+        return salaAtual;
     }
 
 }
