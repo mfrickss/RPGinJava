@@ -1,4 +1,4 @@
-import Personagens.Monstros.*;  // Importa tudo dentro da pasta Personagens.Monstros
+import Personagens.Monstros.*;
 import java.util.Random;
 import java.util.Scanner;
 import Personagens.*;
@@ -17,7 +17,7 @@ public class Main {
         System.out.println("Você acorda de frente para uma masmorra, não há memórias em sua mente, você não sabe como ou porquê está ali.\nVocê tem apenas 3 escolhas.");
 
         while (salaAtual < totalSalas && player.getPlayerHP() > 0) {
-            int choice = -1;
+            int choice;
 
             linha();
             System.out.println("1. Entrar na masmorra ");
@@ -42,7 +42,7 @@ public class Main {
                 System.out.println("2. Abrir inventário");
                 System.out.println("3. Fugir");
                 linha();
-                int subChoice = -1;
+                int subChoice;
                 try {
                     System.out.print("Qual sua escolha?(1-3): ");
                     subChoice = Integer.parseInt(scanner.nextLine());
@@ -102,7 +102,7 @@ public class Main {
                 System.out.println("2. Inventário");
                 System.out.println("3. Fugir");
 
-                int escolha = -1;
+                int escolha;
                 try {
                     System.out.print("Escolha: ");
                     escolha = Integer.parseInt(scanner.nextLine());

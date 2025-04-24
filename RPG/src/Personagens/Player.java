@@ -2,12 +2,16 @@ package Personagens;
 
 import Personagens.Itens.Arma;
 import Personagens.Itens.Item;
+import Personagens.Itens.Magia;
+
 import java.util.Scanner;
 
 public class Player {
     private int playerHP;
     private int playerMaxHP;
-    private int playerMANA;
+    private int playerMana;
+    private int playerManaMax;
+    private Magia magiaEquipada;
     private Arma armaEquipada;
     //COMPOSIÇÃO
     private Inventario inventario;
@@ -15,14 +19,17 @@ public class Player {
     public Player() {
         this.playerHP = 100;
         this.playerMaxHP = 100;
-        this.playerMANA = 100;
+        this.playerMana = 100;
+        this.playerManaMax = 100;
         this.armaEquipada = new Arma("Adaga de Ferro", "Uma adaga brilhante e pequena", 100, 8, 13);
+        this.magiaEquipada = new Magia("Bola de fogo", "Uma pequena bola de fogo", 20, 18, 10);
         this.inventario = new Inventario(10);
     }
 
     public void printStats() {
         System.out.println("Player - HP: " + playerHP + ", Dano: " + armaEquipada.getDMG());
         System.out.println("Player - Arma equipada: " + armaEquipada.toString());
+        System.out.println("Player - Magia equipada: " + magiaEquipada.toString());
     }
 
     public int getPlayerHP(){
@@ -31,6 +38,14 @@ public class Player {
 
     public int getPlayerMaxHP(){
         return this.playerMaxHP;
+    }
+
+    public int getPlayerMana(){
+        return this.playerMana;
+    }
+
+    public int getPlayerManaMax(){
+        return this.playerManaMax;
     }
 
     public int getPlayerDMG(){
@@ -53,11 +68,11 @@ public class Player {
     }
 
     public void recuperarMana(int manaRegen){
-        this.playerHP += manaRegen;
-        if(this.playerHP > this.playerMaxHP){
-            this.playerHP = this.playerMaxHP;
+        this.playerMana += manaRegen;
+        if(this.playerMana > this.playerManaMax){
+            this.playerMana = this.playerManaMax;
         }
-        System.out.printf("\nVocê recuperou %d HP. %d|%d", manaRegen, playerHP, playerMaxHP);
+        System.out.printf("\nVocê recuperou %d de mana. %d|%d", manaRegen, playerMana, playerManaMax);
     }
 
     public Inventario getInventario() {
