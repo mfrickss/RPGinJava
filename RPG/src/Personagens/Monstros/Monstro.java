@@ -1,20 +1,22 @@
 package Personagens.Monstros;
 
+import Personagens.Player;
+
 public abstract class Monstro {
-    public int monsterHP;
-    public int monsterDMG;
+    protected int monsterHP;
 
-    public abstract void printStats();
-
-    public int getMonsterHP(){
+    public int getMonsterHP() {
         return monsterHP;
     }
 
-    public void levarDMG(int dano){
-        this.monsterHP -= dano;
+    public void levarDMG(int dano) {
+        monsterHP -= dano;
+        if (monsterHP < 0) {
+            monsterHP = 0;
+        }
     }
+    //POLIMORFISMO
+    public abstract void atacar(Player player);
 
-    public int getMonsterDMG(){
-        return monsterDMG;
-    }
+    public abstract void printStats();
 }

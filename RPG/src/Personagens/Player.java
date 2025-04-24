@@ -1,26 +1,28 @@
 package Personagens;
 
 import Personagens.Itens.Arma;
+import Personagens.Itens.Item;
+import java.util.Scanner;
 
 public class Player {
     private int playerHP;
     private int playerMaxHP;
     private int playerMANA;
     private Arma armaEquipada;
+    //COMPOSIÇÃO
     private Inventario inventario;
-
 
     public Player() {
         this.playerHP = 100;
         this.playerMaxHP = 100;
         this.playerMANA = 100;
-        this.armaEquipada = new Arma("Adaga de Ferro", "Uma adaga brilhante e pequena", 100, 10);
+        this.armaEquipada = new Arma("Adaga de Ferro", "Uma adaga brilhante e pequena", 100, 8, 13);
         this.inventario = new Inventario(10);
     }
 
     public void printStats() {
-        System.out.println("Personagens.Player - HP: " + playerHP + ", Dano: " + armaEquipada.getDMG());
-        System.out.println("Arma equipada: " + armaEquipada);
+        System.out.println("Player - HP: " + playerHP + ", Dano: " + armaEquipada.getDMG());
+        System.out.println("Player - Arma equipada: " + armaEquipada.toString());
     }
 
     public int getPlayerHP(){
@@ -64,7 +66,6 @@ public class Player {
 
     public void trocarArma(Arma novaArma){
         this.armaEquipada = novaArma;
-        System.out.println("Você equipou" + novaArma);
+        System.out.println("Você equipou " + novaArma);
     }
-
 }

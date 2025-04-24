@@ -1,25 +1,27 @@
 package Personagens.Itens;
-import Personagens.Player;
+import java.util.concurrent.ThreadLocalRandom;
 
-public class Arma extends Item{
+public class Arma extends Item {
+    private int danoMin;
+    private int danoMax;
 
-    private int DMG;
-
-    public Arma(String nome, String descricao, int valor, int DMG){
-        super(nome, descricao, valor);
-        this.DMG = DMG;
+    public Arma(String nome, String descricao, int preco, int danoMin, int danoMax) {
+        super(nome, descricao, preco);
+        this.danoMin = danoMin;
+        this.danoMax = danoMax;
     }
 
     public int getDMG() {
-        return DMG;
+        return ThreadLocalRandom.current().nextInt(danoMin, danoMax + 1);
     }
 
     @Override
-    public void usar(Player player) {
+    public String toString() {
+        return nome + " (Dano: " + danoMin + "-" + danoMax + ")";
     }
 
     @Override
-    public String toString(){
-        return nome + " (Dano: " + DMG + ")";
+    public void usar(Personagens.Player player) {
+        System.out.println("Você usou a arma: " + nome);
     }
 }
