@@ -24,7 +24,7 @@ public class Magia extends Item{
         if(player.getPlayerMana() <= 0){
             System.out.println("Sem mana para usar " + nome + "!");
         }
-            player.setPlayerMana(player.getPlayerMana() - custoMana);
+        int i = player.getPlayerMana() - custoMana;
     }
 
     @Override
