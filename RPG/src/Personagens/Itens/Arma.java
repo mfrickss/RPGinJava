@@ -1,4 +1,6 @@
 package Personagens.Itens;
+import Personagens.Player;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Arma extends Item {
@@ -21,7 +23,7 @@ public class Arma extends Item {
     }
 
     @Override
-    public void usar(Personagens.Player player) {
+    public void usar(Player player) {
         System.out.println("Você usou a arma: " + nome);
     }
 }

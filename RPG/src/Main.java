@@ -96,7 +96,8 @@ public class Main {
             monstro.printStats();
 
             while (monstro.getMonsterHP() > 0 && player.getPlayerHP() > 0) {
-                System.out.println("\nSeu HP: " + player.getPlayerHP());
+                System.out.println("\nSeu HP: " + player.getPlayerHP() + "|" + player.getPlayerMaxHP());
+                System.out.println("\nSua Mana: " + player.getPlayerMana() + "|" + player.getPlayerManaMax());
                 System.out.println("HP do Monstro: " + monstro.getMonsterHP());
                 System.out.println("1. Atacar");
                 System.out.println("2. Inventário");
@@ -112,8 +113,24 @@ public class Main {
                 }
 
                 if (escolha == 1) {
-                    monstro.levarDMG(player.getPlayerDMG());
-                    System.out.println("Você causou " + player.getPlayerDMG() + " de dano!");
+                    System.out.println("1. Atacar com espada");
+                    System.out.println("2. Usar magia");
+                    int choice;
+                    try {
+                        System.out.print("Escolha: ");
+                        choice = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Entrada inválida! Digite um número.");
+                        continue;
+                    }
+                    if(choice == 1){
+                        monstro.levarDMG(player.getPlayerArmaDMG());
+                        System.out.println("Você causou " + player.getPlayerArmaDMG() + " de dano com a " + player.getArmaEquipada().getNome() + "!");
+                    }else{
+                        player.getMagiaEquipada().usarMagia(player, monstro);
+                        System.out.println("Você causou " + player.getPlayerMagiaDMG() + " de dano com a " + player.getMagiaEquipada().getNome() + "!");
+                    }
+
                 } else if (escolha == 3) {
                     int novaSala = chanceFugir(salaAtual);
                     if (novaSala < salaAtual) {

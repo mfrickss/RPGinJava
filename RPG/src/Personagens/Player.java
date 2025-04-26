@@ -1,10 +1,8 @@
 package Personagens;
 
 import Personagens.Itens.Arma;
-import Personagens.Itens.Item;
 import Personagens.Itens.Magia;
 
-import java.util.Scanner;
 
 public class Player {
     private int playerHP;
@@ -44,12 +42,20 @@ public class Player {
         return this.playerMana;
     }
 
+    public int setPlayerMana(){
+        return this.playerMana;
+    }
+
     public int getPlayerManaMax(){
         return this.playerManaMax;
     }
 
-    public int getPlayerDMG(){
+    public int getPlayerArmaDMG(){
         return armaEquipada.getDMG();
+    }
+
+    public int getPlayerMagiaDMG(){
+        return magiaEquipada.getDMG();
     }
 
     public void levarDMG(int dano){
@@ -57,6 +63,14 @@ public class Player {
         if (this.playerHP < 0) {
             this.playerHP = 0;
         }
+    }
+
+    public Arma getArmaEquipada() {
+        return armaEquipada;
+    }
+
+    public Magia getMagiaEquipada() {
+        return magiaEquipada;
     }
 
     public void recuperarHP(int cura){
@@ -83,4 +97,13 @@ public class Player {
         this.armaEquipada = novaArma;
         System.out.println("Você equipou " + novaArma);
     }
+
+    public int custoUsoMagia(){
+        return this.playerMana - magiaEquipada.getCustoMana();
+    }
+
+    public void setPlayerMana(int manaPlayer) {
+        this.playerMana = manaPlayer;
+    }
+
 }

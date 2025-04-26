@@ -1,5 +1,6 @@
 package Personagens.Itens;
 import Personagens.Player;
+import Personagens.Monstros.*;
 
 public class Magia extends Item{
 
@@ -16,15 +17,22 @@ public class Magia extends Item{
         return DMG;
     }
 
-    private int getCustoMana() {
+    public int getCustoMana() {
         return custoMana;
     }
 
-    public void usarMagia(Player player) {
-        if(player.getPlayerMana() <= 0){
-            System.out.println("Sem mana para usar " + nome + "!");
+    public void usarMagia(Player player, Monstro monstro) {
+        if(player.getPlayerMana() < player.getMagiaEquipada().getCustoMana()){
+            System.out.printf("Você está sem mana para usar: %s | %d|%d", player.getMagiaEquipada().getNome(), player.getPlayerMana(), player.getMagiaEquipada().getCustoMana());
+            return;
         }
-        int i = player.getPlayerMana() - custoMana;
+        player.setPlayerMana(player.custoUsoMagia());
+        monstro.levarDMG(player.getMagiaEquipada().getDMG());
+    }
+
+    @Override
+    public void usar(Player player) {
+
     }
 
     @Override
