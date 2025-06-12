@@ -1,43 +1,51 @@
 package Personagens.Monstros;
 
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import Personagens.Player;
+import Personagens.Personagem;
 
 public class Esqueleto extends Monstro {
     private int lvl;
 
     public Esqueleto() {
-        Random random = new Random();
-        lvl = random.nextInt(3) + 1;
-
+        super("Esqueleto", "Morto-Vivo", 0, 0, 15);
+        this.lvl = ThreadLocalRandom.current().nextInt(1, 4);
+        
+        int hp, dano;
         if (lvl == 1) {
-            monsterHP = 30;
+            hp = 30;
+            dano = 6;
         } else if (lvl == 2) {
-            monsterHP = 40;
+            hp = 40;
+            dano = 8;
         } else {
-            monsterHP = 50;
+            hp = 50;
+            dano = 10;
         }
+        
+        setHp(hp);
+        setDano(dano);
     }
 
     public int calcularDano() {
         if (lvl == 1) {
-            return ThreadLocalRandom.current().nextInt(6,  10);
+            return ThreadLocalRandom.current().nextInt(4, 7);
         } else if (lvl == 2) {
-            return ThreadLocalRandom.current().nextInt(9, 13);
+            return ThreadLocalRandom.current().nextInt(7, 10);
         } else {
-            return ThreadLocalRandom.current().nextInt(12, 16);
+            return ThreadLocalRandom.current().nextInt(10, 13);
         }
     }
 
-    public void atacar(Player player) {
+    @Override
+    public void atacar(Personagem alvo) {
         int dano = calcularDano();
-        System.out.println("O Esqueleto causou " + dano + " de dano!");
-        player.levarDMG(dano);
+        alvo.receberDano(dano);
+        System.out.println("O " + getNome() + " causou " + dano + " de dano!");
     }
 
     @Override
     public void printStats() {
-        System.out.println("Esqueleto - HP: " + monsterHP + ", Nível: " + lvl);
+        System.out.println(getNome() + " - HP: " + getHp() + ", Nível: " + lvl + ", Tipo: " + getTipo());
     }
 }

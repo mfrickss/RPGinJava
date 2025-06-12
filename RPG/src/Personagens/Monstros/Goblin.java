@@ -2,41 +2,50 @@ package Personagens.Monstros;
 
 import java.util.concurrent.ThreadLocalRandom;
 import Personagens.Player;
+import Personagens.Personagem;
 
 public class Goblin extends Monstro {
     private int lvl;
 
     public Goblin() {
-        lvl = ThreadLocalRandom.current().nextInt(1, 4); // Nível entre 1 e 3
-
+        super("Goblin", "Criatura Pequena", 0, 0, 10);
+        this.lvl = ThreadLocalRandom.current().nextInt(1, 4);
+        
+        int hp, dano;
         if (lvl == 1) {
-            monsterHP = 20;
+            hp = 20;
+            dano = 4;
         } else if (lvl == 2) {
-            monsterHP = 30;
+            hp = 30;
+            dano = 7;
         } else {
-            monsterHP = 40;
+            hp = 40;
+            dano = 10;
         }
+        
+        setHp(hp);
+        setDano(dano);
     }
 
     public int calcularDano() {
         if (lvl == 1) {
-            return ThreadLocalRandom.current().nextInt(3, 6); // 3–5
+            return ThreadLocalRandom.current().nextInt(3, 6);
         } else if (lvl == 2) {
-            return ThreadLocalRandom.current().nextInt(6, 9); // 6–8
+            return ThreadLocalRandom.current().nextInt(6, 9);
         } else {
-            return ThreadLocalRandom.current().nextInt(9, 12); // 9–11
+            return ThreadLocalRandom.current().nextInt(9, 12);
         }
     }
 
     @Override
-    public void atacar(Player player) {
+    public void atacar(Personagem alvo) {
         int dano = calcularDano();
-        System.out.println("O Goblin causou " + dano + " de dano!");
-        player.levarDMG(dano);
+        alvo.receberDano(dano);
+        System.out.println("O " + getNome() + " causou " + dano + " de dano!");
     }
 
     @Override
     public void printStats() {
-        System.out.println("Goblin - HP: " + monsterHP + ", Nível: " + lvl);
+        System.out.println(getNome() + " - HP: " + getHp() + ", Nível: " + lvl + ", Tipo: " + getTipo());
     }
 }

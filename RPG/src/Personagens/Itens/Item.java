@@ -1,6 +1,10 @@
 package Personagens.Itens;
 
-public abstract class Item {
+import java.io.Serializable;
+
+public abstract class Item implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     protected String nome;
     protected String descricao;
     protected int valor;
