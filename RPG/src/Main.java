@@ -98,7 +98,18 @@ public class Main {
                         }
                     }
                 } else if (lojaChoice == 2) {
-                    System.out.println("HISTÓRIA");
+                    System.out.println("\n'Ah, você quer saber sobre esta masmorra? Hmm...'");
+                    System.out.println("O mercador se aproxima e sussurra:");
+                    System.out.println("'Esta masmorra é antiga, muito antiga. Dizem que foi construída por uma civilização perdida.");
+                    System.out.println("Eles guardavam um tesouro imenso, mas algo deu errado...'");
+                    System.out.println("O mercador faz uma pausa e olha ao redor, nervoso.");
+                    System.out.println("'Os monstros que você vê não são naturais. Eles foram criados, transformados...");
+                    System.out.println("E o pior é que eles continuam se multiplicando. Cada vez mais fortes, cada vez mais numerosos.'");
+                    System.out.println("'Eu fico aqui para ajudar aventureiros como você. Alguém precisa parar isso antes que seja tarde demais.'");
+                    System.out.println("'Se você conseguir chegar ao final da masmorra, talvez encontre respostas... e o tesouro, é claro!'");
+                    System.out.println("O mercador sorri, revelando dentes amarelados.");
+                    System.out.println("'Mas cuidado, jovem aventureiro. Nem tudo é o que parece ser...'");
+                    linha();
                 } else {
                     salaAtual = 0;
                 }
