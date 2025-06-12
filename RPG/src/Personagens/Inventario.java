@@ -90,7 +90,20 @@ public class Inventario {
             if (choice == 1){
                 System.out.println("Escolha qual item usar\n1- " + itens.size() + "): ");
                 int itemEscolhido = scanner.nextInt() - 1;
-                usarItem(itemEscolhido, player);
+                if (itemEscolhido >= 0 && itemEscolhido < itens.size()) {
+                    Item item = itens.get(itemEscolhido);
+                    if (item instanceof Arma) {
+                        System.out.println("1. Equipar arma");
+                        System.out.println("2. Voltar");
+                        System.out.print("O que deseja fazer? ");
+                        int armaChoice = scanner.nextInt();
+                        if (armaChoice == 1) {
+                            usarItem(itemEscolhido, player);
+                        }
+                    } else {
+                        usarItem(itemEscolhido, player);
+                    }
+                }
             }else if(choice == 2){
                 System.out.println("Escolha qual item remover\n1- " + itens.size() + "): ");
                 int itemEscolhido = scanner.nextInt() - 1;

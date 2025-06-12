@@ -22,6 +22,6 @@ public class Arma extends Item {
 
     @Override
     public void usar(Personagens.Player player) {
-        System.out.println("Você usou a arma: " + nome);
+        player.trocarArma(this);
     }
 }

@@ -60,6 +60,10 @@ public class Main {
                     System.out.println("COMBATE");
                     linha();
                     salaAtual = startBattle(player, salaAtual);
+                } else if (subChoice == 2) {
+                    player.getInventario().abrirInventario(player, scanner);
+                } else if (subChoice == 3) {
+                    salaAtual = chanceFugir(salaAtual);
                 }
             } else if (choice == 2) {
                 linha();
@@ -134,6 +138,8 @@ public class Main {
                 if (escolha == 1) {
                     monstro.levarDMG(player.getPlayerDMG());
                     System.out.println("Você causou " + player.getPlayerDMG() + " de dano!");
+                } else if (escolha == 2) {
+                    player.getInventario().abrirInventario(player, scanner);
                 } else if (escolha == 3) {
                     int novaSala = chanceFugir(salaAtual);
                     if (novaSala < salaAtual) {

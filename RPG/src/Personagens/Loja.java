@@ -54,7 +54,7 @@ public class Loja {
             // Compra de arma
             Arma armaEscolhida = armasDisponiveis.get(escolha - 1);
             if (player.gastarMoedas(armaEscolhida.getValor())) {
-                player.trocarArma(armaEscolhida);
+                player.getInventario().adicionarItem(armaEscolhida);
                 return true;
             }
         } else if (escolha > armasDisponiveis.size() && escolha <= armasDisponiveis.size() + itensDisponiveis.size()) {

@@ -13,6 +13,6 @@ public class pocaoCura extends Item{
     @Override
     public void usar(Player player) {
         player.recuperarHP(quantidadeCura);
-        System.out.printf("Você usou %s e curou $d de HP.", nome, quantidadeCura);
+        System.out.printf("Você usou %s e curou %d de HP.\n", nome, quantidadeCura);
     }
 }

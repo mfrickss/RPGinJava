@@ -55,11 +55,11 @@ public class Player {
     }
 
     public void recuperarMana(int manaRegen){
-        this.playerHP += manaRegen;
-        if(this.playerHP > this.playerMaxHP){
-            this.playerHP = this.playerMaxHP;
+        this.playerMANA += manaRegen;
+        if(this.playerMANA > 100){
+            this.playerMANA = 100;
         }
-        System.out.printf("\nVocê recuperou %d HP. %d|%d", manaRegen, playerHP, playerMaxHP);
+        System.out.printf("\nVocê recuperou %d de Mana. %d|100", manaRegen, playerMANA);
     }
 
     public Inventario getInventario() {
