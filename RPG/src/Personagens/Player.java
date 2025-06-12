@@ -1,13 +1,13 @@
 package Personagens;
 
 import Personagens.Itens.Arma;
-import Personagens.Itens.Item;
-import java.util.Scanner;
+
 
 public class Player {
     private int playerHP;
     private int playerMaxHP;
     private int playerMANA;
+    private int moedas;
     private Arma armaEquipada;
     //COMPOSIÇÃO
     private Inventario inventario;
@@ -16,6 +16,7 @@ public class Player {
         this.playerHP = 100;
         this.playerMaxHP = 100;
         this.playerMANA = 100;
+        this.moedas = 50; // Começa com 50 moedas
         this.armaEquipada = new Arma("Adaga de Ferro", "Uma adaga brilhante e pequena", 100, 8, 13);
         this.inventario = new Inventario(10);
     }
@@ -23,6 +24,7 @@ public class Player {
     public void printStats() {
         System.out.println("Player - HP: " + playerHP + ", Dano: " + armaEquipada.getDMG());
         System.out.println("Player - Arma equipada: " + armaEquipada.toString());
+        System.out.println("Moedas: " + moedas);
     }
 
     public int getPlayerHP(){
@@ -67,5 +69,24 @@ public class Player {
     public void trocarArma(Arma novaArma){
         this.armaEquipada = novaArma;
         System.out.println("Você equipou " + novaArma);
+    }
+
+    public int getMoedas() {
+        return moedas;
+    }
+
+    public void adicionarMoedas(int quantidade) {
+        this.moedas += quantidade;
+        System.out.println("Você recebeu " + quantidade + " moedas!");
+    }
+
+    public boolean gastarMoedas(int quantidade) {
+        if (this.moedas >= quantidade) {
+            this.moedas -= quantidade;
+            System.out.println("Você gastou " + quantidade + " moedas!");
+            return true;
+        }
+        System.out.println("Você não tem moedas suficientes!");
+        return false;
     }
 }

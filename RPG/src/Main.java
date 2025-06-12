@@ -2,6 +2,7 @@ import Personagens.Monstros.*;  // Importa tudo dentro da pasta Personagens.Mons
 import java.util.Random;
 import java.util.Scanner;
 import Personagens.*;
+import Personagens.Itens.*;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
@@ -9,9 +10,14 @@ public class Main {
 
     public static void main(String[] args) {
         Player player = new Player();
+        Loja loja = new Loja();
         int salaAtual = 0;
         int totalSalas = 10;
         int totalMoedas = 0;
+
+        // Adiciona poções iniciais ao inventário
+        player.getInventario().adicionarItem(new pocaoCura("Poção de Cura Menor", "Restaura 30 de HP", 30, 30));
+        player.getInventario().adicionarItem(new pocaoMana("Poção de Mana Menor", "Restaura 30 de Mana", 30, 30));
 
         linha();
         System.out.println("Você acorda de frente para uma masmorra, não há memórias em sua mente, você não sabe como ou porquê está ali.\nVocê tem apenas 3 escolhas.");
@@ -72,7 +78,21 @@ public class Main {
                     continue;
                 }
                 if (lojaChoice == 1){
-                    System.out.println("LOJA");
+                    boolean naLoja = true;
+                    while (naLoja) {
+                        loja.mostrarLoja(player);
+                        try {
+                            System.out.print("Escolha um item para comprar (0 para sair): ");
+                            int escolhaItem = Integer.parseInt(scanner.nextLine());
+                            if (escolhaItem == 0) {
+                                naLoja = false;
+                            } else {
+                                loja.comprarItem(player, escolhaItem);
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Entrada inválida! Digite um número.");
+                        }
+                    }
                 } else if (lojaChoice == 2) {
                     System.out.println("HISTÓRIA");
                 } else {
@@ -133,6 +153,8 @@ public class Main {
                 return salaAtual;
             } else {
                 System.out.println("Você derrotou o monstro!");
+                int recompensa = random.nextInt(20) + 10; // Entre 10 e 30 moedas
+                player.adicionarMoedas(recompensa);
             }
         }
 
