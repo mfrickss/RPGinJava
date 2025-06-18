@@ -25,6 +25,7 @@ public class Goblin extends Monstro {
         
         setHp(hp);
         setDano(dano);
+        this.ataqueStrategy = new AtaqueSimples();
     }
 
     public int calcularDano() {
@@ -39,9 +40,7 @@ public class Goblin extends Monstro {
 
     @Override
     public void atacar(Personagem alvo) {
-        int dano = calcularDano();
-        alvo.receberDano(dano);
-        System.out.println("O " + getNome() + " causou " + dano + " de dano!");
+        super.atacar(alvo);
     }
 
     @Override

@@ -247,9 +247,9 @@ public class Main {
             monstro.printStats();
 
             // Loop de combate
-            while (monstro.getMonsterHP() > 0 && player.getPlayerHP() > 0) {
+            while (monstro.getHp() > 0 && player.getPlayerHP() > 0) {
                 System.out.println("\nSeu HP: " + player.getPlayerHP());
-                System.out.println("HP do Monstro: " + monstro.getMonsterHP());
+                System.out.println("HP do Monstro: " + monstro.getHp());
                 System.out.println("1. Atacar");
                 System.out.println("2. Inventário");
                 System.out.println("3. Fugir");
@@ -261,7 +261,7 @@ public class Main {
                     switch (escolha) {
                         case 1:
                             int dano = player.getPlayerDMG();
-                            monstro.levarDMG(dano);
+                            monstro.receberDano(dano);
                             player.atualizarEstatistica("danoCausado", dano);
                             System.out.println("Você causou " + dano + " de dano!");
                             break;
@@ -284,7 +284,7 @@ public class Main {
                     continue;
                 }
 
-                if (monstro.getMonsterHP() > 0) {
+                if (monstro.getHp() > 0) {
                     monstro.atacar(player);
                 }
             }
