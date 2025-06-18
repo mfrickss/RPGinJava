@@ -10,19 +10,35 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * Classe que representa o jogador no jogo
- * Herda de Personagem e implementa ConquistaSubject
+ * Classe Player
+ * Representa o jogador principal do jogo.
+ * Herda de Personagem (herança).
+ * Implementa ConquistaSubject (padrão Observer).
+ * Possui composição com Inventario e Arma.
+ * É serializável (implementa Serializable).
  */
 public class Player extends Personagem implements ConquistaSubject {
+    // Identificador de versão para serialização
     private static final long serialVersionUID = 1L;
+
+    // Mana do jogador (atributo específico de Player)
     private int playerMANA;
+    // Moedas do jogador (atributo específico de Player)
     private int moedas;
+    // Arma equipada pelo jogador (composição)
     private Arma armaEquipada;
+    // Inventário do jogador (composição)
     private Inventario inventario;
+    // Conjunto de conquistas desbloqueadas (coleção Set)
     private Set<String> conquistas;
+    // Observadores de conquistas (padrão Observer)
     private List<ConquistaObserver> observers;
+    // Estatísticas do jogador (coleção Map)
     private Map<String, Integer> estatisticas;
 
+    /**
+     * Construtor do Player. Inicializa atributos e coleções.
+     */
     public Player() {
         super("Aventureiro", 100, 10);
         this.playerMANA = 100;
@@ -35,6 +51,9 @@ public class Player extends Personagem implements ConquistaSubject {
         inicializarEstatisticas();
     }
 
+    /**
+     * Inicializa as estatísticas do jogador (coleção Map).
+     */
     private void inicializarEstatisticas() {
         estatisticas.put("monstrosDerrotados", 0);
         estatisticas.put("itensColetados", 0);
@@ -43,16 +62,25 @@ public class Player extends Personagem implements ConquistaSubject {
         estatisticas.put("danoRecebido", 0);
     }
 
+    /**
+     * Registra um observador de conquistas (padrão Observer).
+     */
     @Override
     public void registrarObserver(ConquistaObserver observer) {
         observers.add(observer);
     }
 
+    /**
+     * Remove um observador de conquistas (padrão Observer).
+     */
     @Override
     public void removerObserver(ConquistaObserver observer) {
         observers.remove(observer);
     }
 
+    /**
+     * Notifica todos os observadores sobre uma nova conquista (padrão Observer).
+     */
     @Override
     public void notificarObservers(String conquista) {
         for (ConquistaObserver observer : observers) {
@@ -60,11 +88,17 @@ public class Player extends Personagem implements ConquistaSubject {
         }
     }
 
+    /**
+     * Atualiza uma estatística do jogador (coleção Map).
+     */
     public void atualizarEstatistica(String chave, int valor) {
         estatisticas.put(chave, estatisticas.getOrDefault(chave, 0) + valor);
         verificarConquistas();
     }
 
+    /**
+     * Verifica e adiciona conquistas ao jogador (coleção Set).
+     */
     private void verificarConquistas() {
         if (estatisticas.get("monstrosDerrotados") >= 10 && !conquistas.contains("Caçador de Monstros")) {
             adicionarConquista("Caçador de Monstros");
@@ -77,6 +111,9 @@ public class Player extends Personagem implements ConquistaSubject {
         }
     }
 
+    /**
+     * Adiciona uma conquista ao conjunto (coleção Set) e notifica observers.
+     */
     public void adicionarConquista(String conquista) {
         if (conquistas.add(conquista)) {
             System.out.println("Nova conquista desbloqueada: " + conquista);
@@ -84,6 +121,9 @@ public class Player extends Personagem implements ConquistaSubject {
         }
     }
 
+    /**
+     * Ataca outro personagem (polimorfismo).
+     */
     @Override
     public void atacar(Personagem alvo) {
         int danoAtaque = getPlayerDMG();
@@ -91,6 +131,9 @@ public class Player extends Personagem implements ConquistaSubject {
         System.out.println(getNome() + " atacou " + alvo.getNome() + " causando " + danoAtaque + " de dano!");
     }
 
+    /**
+     * Imprime as estatísticas do jogador.
+     */
     @Override
     public void printStats() {
         System.out.println("Player - HP: " + getHp() + "/" + getHpMaximo() + ", Dano: " + getPlayerDMG());
@@ -99,7 +142,7 @@ public class Player extends Personagem implements ConquistaSubject {
         System.out.println("Mana: " + playerMANA + "/100");
     }
 
-    // Métodos específicos do Player
+    // Métodos de acesso e manipulação de atributos específicos do Player
     public int getPlayerHP() {
         return getHp();
     }
@@ -168,6 +211,9 @@ public class Player extends Personagem implements ConquistaSubject {
         return new HashMap<>(estatisticas);
     }
 
+    /**
+     * Salva o progresso do jogador em arquivo (serialização).
+     */
     public void salvarProgresso(String nomeArquivo) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(nomeArquivo))) {
             oos.writeObject(this);
@@ -177,6 +223,9 @@ public class Player extends Personagem implements ConquistaSubject {
         }
     }
 
+    /**
+     * Carrega o progresso do jogador de arquivo (serialização).
+     */
     public static Player carregarProgresso(String nomeArquivo) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(nomeArquivo))) {
             Player player = (Player) ois.readObject();

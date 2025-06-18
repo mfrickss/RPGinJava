@@ -7,16 +7,30 @@ import Personagens.Itens.pocaoMana;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe Loja
+ * Representa a loja do jogo.
+ * Agrega listas de itens e armas (coleção List).
+ * Relaciona-se com Player e Inventario (dependência/agregação).
+ */
 public class Loja {
+    // Lista de itens disponíveis para compra (coleção List)
     private List<Item> itensDisponiveis;
+    // Lista de armas disponíveis para compra (coleção List)
     private List<Arma> armasDisponiveis;
 
+    /**
+     * Construtor da Loja. Inicializa as listas de itens e armas.
+     */
     public Loja() {
         this.itensDisponiveis = new ArrayList<>();
         this.armasDisponiveis = new ArrayList<>();
         inicializarLoja();
     }
 
+    /**
+     * Inicializa os itens e armas disponíveis na loja.
+     */
     private void inicializarLoja() {
         // Armas
         armasDisponiveis.add(new Arma("Espada Longa", "Uma espada afiada e resistente", 150, 12, 18));
@@ -30,6 +44,9 @@ public class Loja {
         itensDisponiveis.add(new pocaoMana("Poção de Mana Maior", "Restaura 60 de Mana", 60, 60));
     }
 
+    /**
+     * Mostra a loja e os itens disponíveis para o jogador.
+     */
     public void mostrarLoja(Player player) {
         System.out.println("\n=== LOJA DO MERCADOR ===");
         System.out.println("Suas moedas: " + player.getMoedas());
@@ -49,6 +66,9 @@ public class Loja {
         System.out.println("\n0. Sair da loja");
     }
 
+    /**
+     * Realiza a compra de um item ou arma pelo jogador.
+     */
     public boolean comprarItem(Player player, int escolha) {
         if (escolha > 0 && escolha <= armasDisponiveis.size()) {
             // Compra de arma

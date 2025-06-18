@@ -6,18 +6,29 @@ package Personagens;
 import java.io.Serializable;
 
 /**
- * Classe abstrata base para todos os personagens do jogo
- * Define atributos e comportamentos comuns
+ * Classe abstrata Personagem
+ * Base para todos os personagens do jogo.
+ * Implementa Serializable (serialização).
+ * Serve de superclasse para Player e Monstro (herança).
  */
 public abstract class Personagem implements Serializable {
+    // Identificador de versão para serialização
     private static final long serialVersionUID = 1L;
     
+    // Nome do personagem
     protected String nome;
+    // Pontos de vida atuais
     protected int hp;
+    // Pontos de vida máximos
     protected int hpMaximo;
+    // Dano base do personagem
     protected int dano;
+    // Status de vida
     protected boolean vivo;
 
+    /**
+     * Construtor do Personagem. Inicializa atributos básicos.
+     */
     public Personagem(String nome, int hp, int dano) {
         this.nome = nome;
         this.hp = hp;
@@ -26,11 +37,19 @@ public abstract class Personagem implements Serializable {
         this.vivo = true;
     }
 
-    // Métodos abstratos (polimorfismo)
+    /**
+     * Ataca outro personagem (polimorfismo).
+     */
     public abstract void atacar(Personagem alvo);
+
+    /**
+     * Imprime as estatísticas do personagem.
+     */
     public abstract void printStats();
 
-    // Métodos concretos
+    /**
+     * Aplica dano ao personagem.
+     */
     public void receberDano(int dano) {
         this.hp -= dano;
         if (this.hp <= 0) {
@@ -39,6 +58,9 @@ public abstract class Personagem implements Serializable {
         }
     }
 
+    /**
+     * Cura o personagem.
+     */
     public void curar(int cura) {
         this.hp += cura;
         if (this.hp > this.hpMaximo) {

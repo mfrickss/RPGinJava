@@ -6,22 +6,25 @@ import Personagens.Itens.*;
 import java.util.Map;
 import java.util.HashMap;
 
-
+// Classe principal do jogo RPG
 public class Main {
-    
+    // Instância Singleton do jogo
     private static Main instance;
+    // Scanner para entrada do usuário
     private static Scanner scanner;
+    // Gerador de números aleatórios
     private static Random random;
-    
-    
+    // Estatísticas globais do jogo
     private static Map<String, Integer> estatisticasGlobais = new HashMap<>();
 
+    // Construtor privado para Singleton
     private Main() {
         scanner = new Scanner(System.in);
         random = new Random();
         inicializarEstatisticasGlobais();
     }
 
+    // Retorna a instância Singleton
     public static Main getInstance() {
         if (instance == null) {
             instance = new Main();
@@ -29,14 +32,17 @@ public class Main {
         return instance;
     }
 
+    // Retorna o Scanner global
     public static Scanner getScanner() {
         return scanner;
     }
 
+    // Retorna o Random global
     public static Random getRandom() {
         return random;
     }
 
+    // Inicializa as estatísticas globais
     private void inicializarEstatisticasGlobais() {
         estatisticasGlobais.put("jogosIniciados", 0);
         estatisticasGlobais.put("totalMonstrosDerrotados", 0);
@@ -44,16 +50,16 @@ public class Main {
         estatisticasGlobais.put("jogosConcluidos", 0);
     }
 
+    // Método principal do jogo
     public static void main(String[] args) {
         Main game = Main.getInstance();
         estatisticasGlobais.put("jogosIniciados", estatisticasGlobais.get("jogosIniciados") + 1);
-        
         Player player = new Player();
         Loja loja = new Loja();
         int salaAtual = 0;
         int totalSalas = 10;
 
-        // Configurar o sistema de conquistas
+        // Configura o sistema de conquistas
         ConquistaDisplay display = new ConquistaDisplay("Aventureiro");
         player.registrarObserver(display);
 
@@ -64,6 +70,7 @@ public class Main {
         linha();
         System.out.println("Você acorda de frente para uma masmorra, não há memórias em sua mente, você não sabe como ou porquê está ali.\nVocê tem apenas algumas escolhas.");
 
+        // Loop principal do jogo
         while (salaAtual < totalSalas && player.getPlayerHP() > 0) {
             int choice = -1;
 
@@ -85,6 +92,7 @@ public class Main {
                 continue;
             }
 
+            // Decisão do menu principal
             switch (choice) {
                 case 1:
                     salaAtual = explorarMasmorra(player, salaAtual);
@@ -116,6 +124,7 @@ public class Main {
             }
         }
 
+        // Fim do jogo
         if (salaAtual >= totalSalas) {
             System.out.println("Parabéns! Você completou a masmorra!");
             estatisticasGlobais.put("jogosConcluidos", estatisticasGlobais.get("jogosConcluidos") + 1);
@@ -125,10 +134,12 @@ public class Main {
         scanner.close();
     }
 
+    // Imprime uma linha separadora
     static void linha() {
         System.out.println("===================================");
     }
 
+    // Explora a masmorra e apresenta opções ao jogador
     static int explorarMasmorra(Player player, int salaAtual) {
         salaAtual = 1;
         player.atualizarEstatistica("salasExploradas", 1);
@@ -166,6 +177,7 @@ public class Main {
         return salaAtual;
     }
 
+    // Interação com o mercador (loja ou história)
     static void interagirComMercador(Player player, Loja loja) {
         linha();
         System.out.println("Você solta um tímido 'Olá?', em seguida, ouve uma voz grunhida.");
@@ -210,6 +222,7 @@ public class Main {
         }
     }
 
+    // Exibe a história do mercador
     static void contarHistoriaDoMercador() {
         System.out.println("\n'Ah, você quer saber sobre esta masmorra? Hmm...'");
         System.out.println("O mercador se aproxima e sussurra:");
@@ -225,28 +238,7 @@ public class Main {
         linha();
     }
 
-    static void mostrarEstatisticas(Player player) {
-        System.out.println("\n=== Estatísticas do Jogador ===");
-        Map<String, Integer> estatisticas = player.getEstatisticas();
-        
-        // Usando keySet() para iterar
-        for (String chave : estatisticas.keySet()) {
-            System.out.println(chave + ": " + estatisticas.get(chave));
-        }
-        
-        System.out.println("\n=== Conquistas ===");
-        for (String conquista : player.getConquistas()) {
-            System.out.println("✓ " + conquista);
-        }
-        
-        System.out.println("\n=== Estatísticas Globais ===");
-        // Usando entrySet() para iterar
-        for (Map.Entry<String, Integer> entry : estatisticasGlobais.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
-        System.out.println("==============================\n");
-    }
-
+    // Inicia o combate contra um grupo de monstros
     static int startBattle(Player player, int salaAtual) {
         Monstro[] monstros = MonstroFactory.criarGrupoDeMonstros(3);
 
@@ -254,6 +246,7 @@ public class Main {
             System.out.println("\nUm monstro apareceu!");
             monstro.printStats();
 
+            // Loop de combate
             while (monstro.getMonsterHP() > 0 && player.getPlayerHP() > 0) {
                 System.out.println("\nSeu HP: " + player.getPlayerHP());
                 System.out.println("HP do Monstro: " + monstro.getMonsterHP());
@@ -296,6 +289,7 @@ public class Main {
                 }
             }
 
+            // Verifica se o jogador foi derrotado
             if (player.getPlayerHP() <= 0) {
                 System.out.println("Você foi derrotado...");
                 return salaAtual;
@@ -317,6 +311,7 @@ public class Main {
         return salaAtual;
     }
 
+    // Tenta fugir da sala, com chance de sucesso
     static int chanceFugir(int salaAtual) {
         int chance = random.nextInt(9) + 1;
         if (chance >= 6) {
@@ -328,15 +323,20 @@ public class Main {
         return salaAtual;
     }
 
-    private static void exibirEstatisticasFinais(Player player) {
+    // Exibe estatísticas do jogador
+    static void mostrarEstatisticas(Player player) {
+        System.out.println("\n=== Estatísticas do Jogador ===");
+        player.printStats();
+        System.out.println(player.getEstatisticas());
+        System.out.println("==============================\n");
+    }
+
+    // Exibe estatísticas finais ao terminar o jogo
+    static void exibirEstatisticasFinais(Player player) {
         System.out.println("\n=== Estatísticas Finais ===");
-        Map<String, Integer> estatisticas = player.getEstatisticas();
-        
-        for (Map.Entry<String, Integer> entry : estatisticas.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
-        
-        System.out.println("\nConquistas desbloqueadas: " + player.getConquistas().size());
+        player.printStats();
+        System.out.println(player.getEstatisticas());
+        System.out.println("Estatísticas Globais: " + estatisticasGlobais);
         System.out.println("========================\n");
     }
 }

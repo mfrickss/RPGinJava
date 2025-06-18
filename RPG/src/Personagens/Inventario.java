@@ -11,12 +11,25 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Classe Inventario
+ * Representa o inventário do jogador.
+ * Utiliza ArrayList<Item> para armazenar itens (coleção).
+ * É serializável (implementa Serializable).
+ * Relaciona-se com Player (composição).
+ */
 public class Inventario implements Serializable {
+    // Identificador de versão para serialização
     private static final long serialVersionUID = 1L;
     
+    // Lista de itens do inventário (coleção ArrayList)
     private ArrayList<Item> itens;
+    // Capacidade máxima do inventário
     private int capacidadeMax;
 
+    /**
+     * Construtor do Inventario. Inicializa a lista de itens.
+     */
     public Inventario(int capacidadeMax) {
         this.itens = new ArrayList<>();
         this.capacidadeMax = capacidadeMax;
@@ -26,7 +39,9 @@ public class Inventario implements Serializable {
         this(20); // Capacidade padrão
     }
 
-    // 4. Métodos de Coleções
+    /**
+     * Adiciona um item ao inventário (método add da coleção).
+     */
     public boolean adicionarItem(Item item) {
         if (itens.size() < capacidadeMax) {
             itens.add(item);
@@ -38,40 +53,56 @@ public class Inventario implements Serializable {
         }
     }
 
+    /**
+     * Remove um item do inventário (método remove da coleção).
+     */
     public void removerItem(Item item) {
         if (itens.remove(item)) {
             System.out.println("Item removido: " + item.getNome());
         }
     }
 
-    // Método contains
+    /**
+     * Verifica se o inventário contém um item pelo nome (método contains/stream).
+     */
     public boolean contemItem(String nomeItem) {
         return itens.stream().anyMatch(item -> item.getNome().equalsIgnoreCase(nomeItem));
     }
 
-    // Método size
+    /**
+     * Retorna o tamanho do inventário (método size da coleção).
+     */
     public int getTamanho() {
         return itens.size();
     }
 
-    // Método clear
+    /**
+     * Limpa todos os itens do inventário (método clear da coleção).
+     */
     public void limparInventario() {
         itens.clear();
         System.out.println("Inventário limpo!");
     }
 
-    // Método sort
+    /**
+     * Ordena os itens por nome (método sort da coleção).
+     */
     public void ordenarPorNome() {
         Collections.sort(itens, Comparator.comparing(Item::getNome));
         System.out.println("Inventário ordenado por nome!");
     }
 
+    /**
+     * Ordena os itens por valor (método sort da coleção).
+     */
     public void ordenarPorValor() {
         Collections.sort(itens, Comparator.comparing(Item::getValor).reversed());
         System.out.println("Inventário ordenado por valor!");
     }
 
-    // Método indexOf
+    /**
+     * Encontra o índice de um item pelo nome (método indexOf).
+     */
     public int encontrarIndice(String nomeItem) {
         for (int i = 0; i < itens.size(); i++) {
             if (itens.get(i).getNome().equalsIgnoreCase(nomeItem)) {
@@ -81,13 +112,18 @@ public class Inventario implements Serializable {
         return -1;
     }
 
-    // Filtrar itens usando stream
+    /**
+     * Filtra itens por tipo usando stream.
+     */
     public List<Item> filtrarPorTipo(Class<?> tipo) {
         return itens.stream()
                 .filter(tipo::isInstance)
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Retorna todas as armas do inventário (stream + instanceof).
+     */
     public List<Arma> obterArmas() {
         return itens.stream()
                 .filter(item -> item instanceof Arma)
@@ -95,6 +131,9 @@ public class Inventario implements Serializable {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Mostra o inventário na tela.
+     */
     public void mostrarInventario() {
         if (itens.isEmpty()) {
             System.out.println("Seu inventário está vazio.");
@@ -117,6 +156,9 @@ public class Inventario implements Serializable {
         System.out.println("=======================");
     }
 
+    /**
+     * Usa um item do inventário (polimorfismo em Item).
+     */
     public void usarItem(int indice, Player player) {
         if (indice >= 0 && indice < itens.size()) {
             Item item = itens.get(indice);
@@ -131,6 +173,9 @@ public class Inventario implements Serializable {
         }
     }
 
+    /**
+     * Abre o menu do inventário para o jogador.
+     */
     public void abrirInventario(Player player, Scanner scanner) {
         while (true) {
             mostrarInventario();
